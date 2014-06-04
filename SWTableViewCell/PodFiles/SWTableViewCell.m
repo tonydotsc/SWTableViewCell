@@ -573,6 +573,7 @@ static NSString * const kTableViewPanState = @"state";
     }
     
     self.cellScrollView.scrollEnabled = !self.isEditing;
+    
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -588,6 +589,10 @@ static NSString * const kTableViewPanState = @"state";
         else
         {
             _cellState = kCellStateRight;
+            if ([self.delegate respondsToSelector:@selector(swipeableTableViewCell:didTriggerRightUtilityButtonWithIndex:)])
+            {
+                [self.delegate swipeableTableViewCell:self didTriggerRightUtilityButtonWithIndex:0];
+            }
         }
     }
     else if (velocity.x <= -0.5f)
@@ -599,20 +604,33 @@ static NSString * const kTableViewPanState = @"state";
         else
         {
             _cellState = kCellStateLeft;
+            if ([self.delegate respondsToSelector:@selector(swipeableTableViewCell:didTriggerLeftUtilityButtonWithIndex:)])
+            {
+                [self.delegate swipeableTableViewCell:self didTriggerLeftUtilityButtonWithIndex:0];
+            }
         }
     }
     else
     {
+        
         CGFloat leftThreshold = [self contentOffsetForCellState:kCellStateLeft].x + (self.leftUtilityButtonsWidth / 2);
         CGFloat rightThreshold = [self contentOffsetForCellState:kCellStateRight].x - (self.rightUtilityButtonsWidth / 2);
         
         if (targetContentOffset->x > rightThreshold)
         {
             _cellState = kCellStateRight;
+            if ([self.delegate respondsToSelector:@selector(swipeableTableViewCell:didTriggerRightUtilityButtonWithIndex:)])
+            {
+                [self.delegate swipeableTableViewCell:self didTriggerRightUtilityButtonWithIndex:0];
+            }
         }
         else if (targetContentOffset->x < leftThreshold)
         {
             _cellState = kCellStateLeft;
+            if ([self.delegate respondsToSelector:@selector(swipeableTableViewCell:didTriggerLeftUtilityButtonWithIndex:)])
+            {
+                [self.delegate swipeableTableViewCell:self didTriggerLeftUtilityButtonWithIndex:0];
+            }
         }
         else
         {
