@@ -90,7 +90,7 @@
                                                                                views:NSDictionaryOfVariableBindings(precedingView, button)]];
             }
             
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[button]|"
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[button]-10-|"
                                                                          options:0L
                                                                          metrics:nil
                                                                            views:NSDictionaryOfVariableBindings(button)]];
